@@ -5,6 +5,9 @@ import SocialPill from "../components/SocialPill.astro";
 import LinkedInIcon from "../components/icons/LinkedIn.astro";
 import GitHubIcon from "../components/icons/GitHub.astro";
 import MailIcon from "../components/icons/Mail.astro";
+import Section from "../components/Section.astro";
+import Projects from "../components/Projects.astro";
+import CodeIcon from "../components/icons/Code.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
@@ -13,41 +16,63 @@ import MailIcon from "../components/icons/Mail.astro";
 	title="Portfolio AdrianDev - FullStack Developer"
 	description="Contract Developer - FullStack Developer - Monterrey, México"
 >
-	<section id="home" class="w-full lg:w-[740px] mx-auto py-44">
-		<h1 class="text-white text-5xl font-bold flex flex-row gap-x-4 pb-4">
-			Hey! i'm Adrian Chavez<div
-				class="flex justify-center items-center flex-row"
+	<main class="px-6" id="home">
+		<section class="w-full lg:w-[740px] mx-auto py-44">
+			<h1
+				class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-4"
 			>
-				<a
-					href="https://linkedin.com/in/adrianchvzz"
-					target="_blank"
-					rel="noopener"
-					class="flex items-center justify-center"
-					><Badge>Open to Work</Badge></a
+				Hey! i'm Adrián Chávez
+				<div class="flex justify-center items-center flex-row">
+					<a
+						href="https://linkedin.com/in/adrianchvzz"
+						target="_blank"
+						rel="noopener"
+						class="flex items-center justify-center"
+						><Badge>Open to Work</Badge></a
+					>
+				</div>
+			</h1>
+			<h2
+				class="text-white text-lg md:text-xl lg:text-xl opacity-80 max-w-[800px]"
+			>
+				<span>+1 year of experience as Full Stack Developer.</span>
+				<span class="text-indigo-300">From Monterrey, Nuevo León.</span>
+				<span class="opacity-80">
+					I'm specialized in modern web development and applications
+					unique.</span
 				>
+			</h2>
+
+			<nav class="flex gap-4 mt-6 flex-wrap">
+				<SocialPill href="https://linkedin.com/in/adrianchvzz">
+					<LinkedInIcon class="size-4 md:size-6" />LinkedIn
+				</SocialPill>
+
+				<SocialPill href="https://github.com/adrianchvzz0">
+					<GitHubIcon class="size-4 md:size-6" />GitHub
+				</SocialPill>
+
+				<SocialPill href="https://linkedin.com/in/adrianchvzz">
+					<MailIcon class="size-4 md:size-6" />adrianchvzz@gmail.com
+				</SocialPill>
+			</nav>
+		</section>
+
+		<Section id="projects" class="w-full lg:w-[740px] mx-auto py-32">
+			<div class="gap-4">
+				<h2
+					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+				>
+					<CodeIcon class="size-4 md:size-6 text-purple-500" />
+
+					Projects.
+				</h2>
 			</div>
-		</h1>
-		<h2 class="text-white text-xl opacity-80">
-			<span>+1 year of experience as Full Stack Developer.</span>
-			<span class="text-indigo-300">From Monterrey, Nuevo Leon.</span>
-			<span class="opacity-80">
-				I'm specialized in modern web development and applications
-				unique.</span
+			<div
+				class="h-px w-full lg:w-[740px] bg-gradient-to-r from-purple-500/80 to-transparent mb-8 lg:mb-6"
 			>
-		</h2>
-
-		<nav class="flex gap-x-2 mt-6">
-			<SocialPill href="https://linkedin.com/in/adrianchvzz">
-				<LinkedInIcon class="size-6" />LinkedIn
-			</SocialPill>
-
-			<SocialPill href="https://github.com/adrianchvzz0">
-				<GitHubIcon class="size-6" />GitHub
-			</SocialPill>
-
-			<SocialPill href="https://linkedin.com/in/adrianchvzz">
-				<MailIcon class="size-6" />adrianchvzz@gmail.com
-			</SocialPill>
-		</nav>
-	</section>
+			</div>
+			<Projects />
+		</Section>
+	</main>
 </Layout>
