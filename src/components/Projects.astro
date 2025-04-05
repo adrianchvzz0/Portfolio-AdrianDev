@@ -1,51 +1,99 @@
 ---
 import Section from "../components/Section.astro";
+import Dart from "../components/icons/Dart.astro";
+import TailwindCSS from "../components/icons/TailwindCSS.astro";
+import Flutter from "../components/icons/Flutter.astro";
+import Firebase from "../components/icons/Firebase.astro";
+import NodeJS from "../components/icons/NodeJS.astro";
+import HTML from "../components/icons/HTML5.astro";
+import React from "../components/icons/React.astro";
+import JavaScript from "../components/icons/JavaScript.astro";
+
+const TAGS = {
+    FLUTTER: {
+        name: "Flutter",
+        icon: Flutter,
+    },
+    DART: {
+        name: "Dart",
+        icon: Dart,
+    },
+    TAILWINDCSS: {
+        name: "TailwindCSS",
+        icon: TailwindCSS,
+    },
+    FIREBASE: {
+        name: "Firebase",
+        icon: Firebase,
+    },
+    NODEJS: {
+        name: "Node.js",
+        icon: NodeJS,
+    },
+    HTML: {
+        name: "HTML5",
+        icon: HTML,
+    },
+    REACT: {
+        name: "React",
+        icon: React,
+    },
+    JAVASCRIPT: {
+        name: "JavaScript",
+        icon: JavaScript,
+    },
+};
 
 const PROJECTS = [
     {
-        title: "ecoapp",
+        title: "Ecoinnova",
         description:
-            "Ecoapp is a application for monitoring the devices eco-Tinaco in real time about temperature, level and more.",
+            "Ecoinnova is a application for monitoring the devices eco-Tinaco in real time about temperature, level and more.",
         image: "/src/assets/projects/ecoinnova-mockup2.webp",
         link: "https://github.com/adrianchvzz0/ecoapp",
-        tags: ["Flutter", "Dart", "Firebase"],
+        tags: [TAGS.FLUTTER, TAGS.DART, TAGS.FIREBASE],
     },
     {
         title: "DLI Parking",
         description:
             "DLI Parking is an application designed to efficiently manage parking lots and streamline resident access. Additionally, it helps reduce the use of physical tickets, optimizing the process and minimizing paper waste.",
         image: "/src/assets/projects/dli-parking.webp",
-        link: "https://project2.com",
-        tags: ["Flutter", "Dart", "Firebase"],
+        link: "https://github.com/adrianchvzz0/dli-parking",
+        tags: [TAGS.FLUTTER, TAGS.DART, TAGS.FIREBASE],
     },
     {
         title: "Ticketito",
-        description: "Project 3 description",
-        image: "/src/assets/project3.png",
-        link: "https://project3.com",
+        description:
+            "Ticketito is a web page designed to manage tickets for events, meetings, or other activities.",
+        image: "/src/assets/projects/ticketito.webp",
+        link: "https://github.com/adrianchvzz0/ticketito",
         tags: [
-            "JavaScript",
-            "React",
-            "Firebase",
-            "Node.js",
-            "Express",
-            "TailwindCSS",
+            TAGS.JAVASCRIPT,
+            TAGS.REACT,
+            TAGS.FIREBASE,
+            TAGS.NODEJS,
+            TAGS.TAILWINDCSS,
         ],
     },
 ];
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
     {
         PROJECTS.map((project) => (
             <article class="group">
                 <a href={project.link} class="relative block">
-                    <div class="relative flex flex-col h-full overflow-hidden rounded-xl bg-[#0a071c] shadow-lg shadow-purple-500/30 transition-all duration-500 hover:scale-105">
+                    <div
+                        class="card relative flex flex-col h-full overflow-hidden 
+                    rounded-xl
+                     bg-[#0a071c] 
+                     transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-purple-400/30"
+                    >
                         <div class="p-4">
-                            <h3 class="text-xl font-semibold text-white mb-2">
+                            <h3 class="text-xl font-semibold text-purple-100 mb-2">
                                 {project.title}
                             </h3>
-                            <p class="text-sm text-white/80 line-clamp-3 mb-4">
+                            <p class="text-sm text-white/80 line-clamp-3 mb-4 text-pretty">
                                 {project.description}
                             </p>
                         </div>
@@ -58,8 +106,9 @@ const PROJECTS = [
                             <div class="absolute inset-0 h-full bg-gradient-to-b from-transparent via-black/20 to-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500">
                                 <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-wrap gap-2 translate-y-full group-hover:translate-y-0 transition-all duration-500">
                                     {project.tags.map((tag) => (
-                                        <span class="bg-purple-500/90 px-2 py-1 text-xs rounded-full text-white">
-                                            {tag}
+                                        <span class="flex flex-row items-center gap-x-2 bg-black/80 px-2 py-1 text-xs rounded-full text-white/80 hover:scale-110 hover:text-white transition-all duration-300">
+                                            <tag.icon class="size-6 md:size-5" />{" "}
+                                            {tag.name}
                                         </span>
                                     ))}
                                 </div>
@@ -71,3 +120,46 @@ const PROJECTS = [
         ))
     }
 </div>
+
+<style>
+    .card {
+        position: relative;
+    }
+
+    .card::before {
+        content: "";
+        position: absolute;
+        inset: -1px;
+        border-radius: 12px;
+        padding: 2px;
+        background: linear-gradient(
+            90deg,
+            #0a071c 0%,
+            #9333ea 20%,
+            #0a071c 80%
+        );
+        -webkit-mask:
+            linear-gradient(#fff 0 0) content-box,
+            linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: opacity 0.5s;
+        background-size: 200% 100%;
+        animation: none;
+    }
+
+    .card:hover::before {
+        opacity: 1;
+        animation: animateBorder 2s ease-in infinite;
+    }
+
+    @keyframes animateBorder {
+        0% {
+            background-position: -100% 0;
+        }
+        100% {
+            background-position: 100% 0;
+        }
+    }
+</style>

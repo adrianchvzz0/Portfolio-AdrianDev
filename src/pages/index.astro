@@ -8,6 +8,9 @@ import MailIcon from "../components/icons/Mail.astro";
 import Section from "../components/Section.astro";
 import Projects from "../components/Projects.astro";
 import CodeIcon from "../components/icons/Code.astro";
+import Line from "../components/Line.astro";
+import UserIcon from "../components/icons/User.astro";
+import Skills from "../components/Skills.astro";
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
@@ -17,7 +20,7 @@ import CodeIcon from "../components/icons/Code.astro";
 	description="Contract Developer - FullStack Developer - Monterrey, México"
 >
 	<main class="px-6" id="home">
-		<section class="w-full lg:w-[740px] mx-auto py-44">
+		<section class="w-full lg:w-[740px] mx-auto py-52">
 			<h1
 				class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-4"
 			>
@@ -52,13 +55,34 @@ import CodeIcon from "../components/icons/Code.astro";
 					<GitHubIcon class="size-4 md:size-6" />GitHub
 				</SocialPill>
 
-				<SocialPill href="https://linkedin.com/in/adrianchvzz">
+				<SocialPill href="mailto:adrianchvzz@gmail.com">
 					<MailIcon class="size-4 md:size-6" />adrianchvzz@gmail.com
 				</SocialPill>
 			</nav>
 		</section>
 
-		<Section id="projects" class="w-full lg:w-[740px] mx-auto py-32">
+		<Section
+			id="skills"
+			class="flex flex-col w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+		>
+			<div class="gap-4">
+				<h2
+					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 justify-center items-center pb-6 lg:pb-4"
+				>
+					Skills.
+				</h2>
+			</div>
+			<div
+				class="h-px w-[200px] lg:w-[800px] bg-gradient-to-r from-transparent via-purple-500/80 to-transparent mb-8 lg:mb-12 rounded-full"
+			>
+			</div>
+			<Skills />
+		</Section>
+
+		<Section
+			id="projects"
+			class="w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+		>
 			<div class="gap-4">
 				<h2
 					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
@@ -68,11 +92,89 @@ import CodeIcon from "../components/icons/Code.astro";
 					Projects.
 				</h2>
 			</div>
-			<div
-				class="h-px w-full lg:w-[740px] bg-gradient-to-r from-purple-500/80 to-transparent mb-8 lg:mb-6"
-			>
-			</div>
+			<Line />
+
 			<Projects />
+		</Section>
+
+		<!--Empieza el About-->
+		<Section id="about" class="w-full lg:w-[740px] mx-auto py-28 lg:py-32">
+			<div class="gap-4">
+				<h2
+					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+				>
+					<UserIcon class="size-4 md:size-6 text-purple-500" />
+
+					About.
+				</h2>
+			</div>
+			<Line />
+			<div
+				class="flex flex-col font-normal text-pretty text-lg
+				justify-center items-center"
+			>
+				<img
+					src="/src/assets/logo.webp"
+					alt="Adrian Dev Foto"
+					class="size-12 md:size-16 lg:size-32 rounded-full mb-4"
+				/>
+				<p class="mb-2">
+					My name is Adrián Chávez, and I'm studying <span
+						class="font-semibold text-indigo-300"
+						>Multiplatform Software Development Engineering</span
+					>.
+				</p>
+
+				<p>
+					I'm passionate about both web and mobile application
+					development. I've gained
+					<span class="font-semibold text-indigo-300">UX/UI</span> design
+					experience through self-learning, always focused on creating
+					high-quality solutions in both design and functionality.
+				</p>
+			</div>
+		</Section>
+
+		<Section
+			id="contact"
+			class="w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+		>
+			<div class="gap-4">
+				<h2
+					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+				>
+					<MailIcon class="size-4 md:size-6 text-purple-500" />
+
+					Contact.
+				</h2>
+			</div>
+			<Line />
+			<div class="flex flex-col gap-2 items-center">
+				<h5 class="text-xl md:text-2xl lg:text-lg font-semibold">
+					Email
+				</h5>
+				<a
+					href="mailto:adrianchvzz@gmail.com"
+					class="underline text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+					>adrianchvzz@gmail.com</a
+				>
+				<h5 class="text-xl md:text-2xl lg:text-lg font-semibold">
+					Phone
+				</h5>
+				<a
+					href="tel:8187097029"
+					class="underline text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+					>81 8709 7029</a
+				>
+				<h5 class="text-xl md:text-2xl lg:text-lg font-semibold">
+					Address
+				</h5>
+				<p
+					class="text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+				>
+					Monterrey, Nuevo León
+				</p>
+			</div>
 		</Section>
 	</main>
 </Layout>

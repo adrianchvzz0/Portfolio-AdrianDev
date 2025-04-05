@@ -1,0 +1,65 @@
+---
+import Dart from "../components/icons/Dart.astro";
+import TailwindCSS from "../components/icons/TailwindCSS.astro";
+import Flutter from "../components/icons/Flutter.astro";
+import Firebase from "../components/icons/Firebase.astro";
+import NodeJS from "../components/icons/NodeJS.astro";
+import HTML from "../components/icons/HTML5.astro";
+import React from "../components/icons/React.astro";
+import JavaScript from "../components/icons/JavaScript.astro";
+import AstroIcon from "../components/icons/AstroIcon.astro";
+
+const TAGS = {
+    FLUTTER: {
+        name: "Flutter",
+        icon: Flutter,
+    },
+    DART: {
+        name: "Dart",
+        icon: Dart,
+    },
+    TAILWINDCSS: {
+        name: "TailwindCSS",
+        icon: TailwindCSS,
+    },
+    FIREBASE: {
+        name: "Firebase",
+        icon: Firebase,
+    },
+    NODEJS: {
+        name: "Node.js",
+        icon: NodeJS,
+    },
+    HTML: {
+        name: "HTML5",
+        icon: HTML,
+    },
+    REACT: {
+        name: "React",
+        icon: React,
+    },
+    ASTRO: {
+        name: "Astro",
+        icon: AstroIcon,
+    },
+    JAVASCRIPT: {
+        name: "JavaScript",
+        icon: JavaScript,
+    },
+};
+---
+
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+    {
+        Object.entries(TAGS).map(([key, value]) => (
+            <div class="group relative px-2">
+                <div class="flex flex-row items-center justify-center rounded-full border-white/10 border-2 bg-transparent py-1 px-2 md:py-2 md:px-4 backdrop-blur-sm transition-all duration-300 hover:bg-purple-500/10 hover:scale-110 hover:shadow-md hover:shadow-purple-500/80">
+                    <value.icon class="size-6 md:size-6" />
+                    <span class="font-semibold text-xs md:text-sm text-white/80 group-hover:text-white transition-all duration-300">
+                        {value.name}
+                    </span>
+                </div>
+            </div>
+        ))
+    }
+</div>

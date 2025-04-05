@@ -1,36 +1,85 @@
 <header
-    class="flex justify-between items-center py-3 px-4 sm:px-6 md:px-8 w-full md:w-[740px] xl:w-[1120px] mx-auto"
+    id="header"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 backdrop-blur-none bg-transparent"
 >
-    <img
-        class="rounded-full size-8 md:size-10 lg:size-12"
-        src="/src/assets/logo.png"
-        alt="Adrian Dev Foto"
-    />
+    <div
+        class="flex justify-between items-center py-4 px-4 sm:px-6 md:px-8 lg:px-10 w-[80%] md:w-[700px] xl:w-[1000px] mx-auto"
+    >
+        <img
+            class="rounded-full size-8 md:size-10 lg:size-12"
+            src="/src/assets/logo.webp"
+            alt="Adrian Dev Foto"
+        />
 
-    <nav class="flex flex-row gap-x-4 sm:gap-x-8 md:gap-x-10">
-        <a 
-            href="#home" 
-            class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-indigo-300 transition"
-        >
-            Home
-        </a>
-        <a 
-            href="#about" 
-            class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-indigo-300 transition"
-        >
-            About
-        </a>
-        <a 
-            href="#projects" 
-            class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-indigo-300 transition"
-        >
-            Projects
-        </a>
-        <a 
-            href="#contact" 
-            class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-indigo-300 transition"
-        >
-            Contact
-        </a>
-    </nav>
+        <nav class="flex flex-row gap-x-4 sm:gap-x-8 md:gap-x-10">
+            <a
+                href="#home"
+                class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-purple-400 transition"
+            >
+                Home
+            </a>
+            <a
+                href="#skills"
+                class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-purple-400 transition"
+            >
+                Skills
+            </a>
+            <a
+                href="#projects"
+                class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-purple-400 transition"
+            >
+                Projects
+            </a>
+            <a
+                href="#about"
+                class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-purple-400 transition"
+            >
+                About
+            </a>
+
+            <a
+                href="#contact"
+                class="text-sm sm:text-base opacity-80 hover:opacity-100 hover:text-purple-400 transition"
+            >
+                Contact
+            </a>
+        </nav>
+    </div>
 </header>
+
+<script>
+    const header = document.getElementById("header");
+    const maxScroll = 250; // punto donde el efecto está al máximo
+
+    if (header) {
+        window.addEventListener("scroll", () => {
+            const scrollPercentage = Math.min(window.scrollY / maxScroll, 1);
+            const blurValue = Math.floor(scrollPercentage * 6); // máximo blur de 6px
+            const bgOpacity = Math.floor(scrollPercentage * 20); // máximo 20% de opacidad
+
+            if (scrollPercentage > 0) {
+                header.style.backdropFilter = `blur(${blurValue}px)`;
+                header.style.backgroundColor = `rgba(0, 0, 0, ${bgOpacity / 90})`;
+                header.classList.add(
+                    "rounded-full",
+                    "mx-4",
+                    "mt-4",
+                    "font-semibold",
+                    "shadow-xl",
+                    "text-white/100",
+                );
+            } else {
+                header.style.backdropFilter = "none";
+                header.style.backgroundColor = "transparent";
+                header.classList.remove(
+                    "shadow-xl",
+                    "rounded-xl",
+                    "mx-4",
+                    "mt-4",
+                    "font-semibold",
+                    "text-white/100",
+                );
+            }
+        });
+    }
+</script>

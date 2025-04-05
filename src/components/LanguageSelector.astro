@@ -1,0 +1,41 @@
+---
+const currentPath = Astro.url.pathname;
+const currentLang = currentPath.startsWith('/es') ? 'es' : 'en';
+---
+
+<div class="relative inline-block">
+  <select
+    id="language-selector"
+    class="bg-slate-800 text-white px-3 py-1 rounded-lg appearance-none cursor-pointer pr-8 text-sm"
+    value={currentLang}
+  >
+    <option value="en">EN</option>
+    <option value="es">ES</option>
+  </select>
+  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+      <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+  const languageSelector = document.getElementById('language-selector') as HTMLSelectElement;
+  
+  languageSelector.addEventListener('change', (e) => {
+    const newLang = (e.target as HTMLSelectElement).value;
+    const currentPath = window.location.pathname;
+    
+    // Remove current language prefix if it exists
+    let newPath = currentPath.replace(/^\/(?:es|en)/, '');
+    
+    // Add new language prefix if it's Spanish
+    if (newLang === 'es') {
+      newPath = '/es' + (newPath || '/');
+    } else if (newPath === '') {
+      newPath = '/';
+    }
+    
+    window.location.href = newPath;
+  });
+</script>
