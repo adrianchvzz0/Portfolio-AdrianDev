@@ -7,6 +7,7 @@ import Firebase from "../components/icons/Firebase.astro";
 import NodeJS from "../components/icons/NodeJS.astro";
 import HTML from "../components/icons/HTML5.astro";
 import React from "../components/icons/React.astro";
+import AstroIcon from "../components/icons/AstroIcon.astro";
 import JavaScript from "../components/icons/JavaScript.astro";
 
 const TAGS = {
@@ -42,6 +43,10 @@ const TAGS = {
         name: "JavaScript",
         icon: JavaScript,
     },
+    ASTRO: {
+        name: "Astro",
+        icon: AstroIcon,
+    },
 };
 
 const PROJECTS = [
@@ -66,7 +71,7 @@ const PROJECTS = [
         description:
             "Ticketito is a web page designed to manage tickets for events, meetings, or other activities.",
         image: "/images/ticketito.webp",
-        link: "https://github.com/adrianchvzz0/ticketito",
+        link: "https://ticketito.netlify.app",
         tags: [
             TAGS.JAVASCRIPT,
             TAGS.REACT,
@@ -74,6 +79,14 @@ const PROJECTS = [
             TAGS.NODEJS,
             TAGS.TAILWINDCSS,
         ],
+    },
+    {
+        title: "PriorityDental",
+        description:
+            "PriorityDental is a landing page designed to show the services of a dental clinic.",
+        image: "/images/prioritydental.webp",
+        link: "https://prioritydental.netlify.app",
+        tags: [TAGS.ASTRO, TAGS.TAILWINDCSS, TAGS.HTML],
     },
 ];
 ---
