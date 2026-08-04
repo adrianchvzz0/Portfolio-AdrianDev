@@ -112,7 +112,7 @@ const PROJECTS = [
     <!-- Escenario WebGL -->
     <div
         id="gl-stage"
-        class="relative h-[300px] sm:h-[360px] md:h-[430px] cursor-grab select-none"
+        class="relative h-[350px] sm:h-[380px] md:h-[430px] cursor-grab select-none"
     >
     </div>
 
@@ -144,7 +144,7 @@ const PROJECTS = [
     </div>
 
     <!-- Info del proyecto activo -->
-    <div class="relative mt-6 min-h-[170px] sm:min-h-[150px]">
+    <div class="relative mt-6 min-h-[210px] sm:min-h-[190px]">
         {
             PROJECTS.map((project, i) => (
                 <div
@@ -165,17 +165,19 @@ const PROJECTS = [
                                 {tag.name}
                             </span>
                         ))}
-                        {project.link && (
+                    </div>
+                    {project.link && (
+                        <div class="flex justify-center mt-3">
                             <a
                                 href={project.link}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                class="flex items-center gap-x-1 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-3 py-1 text-xs rounded-full font-medium hover:bg-[#f23a00] dark:hover:bg-[#f23a00] dark:hover:text-white transition"
+                                class="flex items-center gap-x-1 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-4 py-1.5 text-xs rounded-full font-medium hover:bg-[#f23a00] dark:hover:bg-[#f23a00] dark:hover:text-white transition"
                             >
                                 View project ↗
                             </a>
-                        )}
-                    </div>
+                        </div>
+                    )}
                 </div>
             ))
         }
@@ -411,7 +413,7 @@ const PROJECTS = [
                     Math.tan((camera.fov * Math.PI) / 360);
                 const worldW = worldH * camera.aspect;
                 pxToWorld = worldW / cw;
-                cardPx = Math.min(0.66 * w, 560);
+                cardPx = mobile ? 0.88 * w : Math.min(0.66 * w, 560);
                 const cardW = cardPx * pxToWorld;
                 const cardH = cardW * 0.625;
                 spacing = cardW * 1.1;
