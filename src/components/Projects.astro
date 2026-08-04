@@ -302,6 +302,7 @@ const PROJECTS = [
             const vert = /* glsl */ `
                 uniform float uHalfW;
                 uniform float uFocus;
+                uniform float uLensScale;
                 varying vec2 vUv;
                 varying float vS;
                 void main() {
@@ -315,7 +316,7 @@ const PROJECTS = [
                     vec2 q = vec2(wp.x, wp.y) / uHalfW;
                     vec2 pr = mat2(cr, -sr, sr, cr) * q;
                     float dist = clamp(
-                        length(pr / vec2(0.55, 1.15)),
+                        length(pr / (vec2(0.55, 1.15) * uLensScale)),
                         0.0,
                         1.35
                     );
@@ -380,6 +381,7 @@ const PROJECTS = [
                         uMap: { value: tex },
                         uHalfW: { value: 5 },
                         uFocus: { value: 0.44 },
+                        uLensScale: { value: 1 },
                     },
                     vertexShader: vert,
                     fragmentShader: frag,
@@ -424,9 +426,9 @@ const PROJECTS = [
                     m.scale.set(cardW, cardH, cardW);
                     const u = (m.material as THREE.ShaderMaterial).uniforms;
                     u.uHalfW.value = stageHalfW;
-                    // en pantallas angostas la zona de foco se amplía para
-                    // que la card activa quede limpia
-                    u.uFocus.value = mobile ? 0.62 : 0.44;
+                    // en pantallas angostas la elipse completa se agranda
+                    // para que la card activa quede dentro del vidrio limpio
+                    u.uLensScale.value = mobile ? 1.45 : 1.0;
                 });
                 target = index * spacing;
                 scroll = target;
