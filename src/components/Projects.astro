@@ -50,6 +50,22 @@ const TAGS = {
 
 const PROJECTS = [
     {
+        title: "Rumbo",
+        description:
+            "Rumbo is the website of a marketing agency based in Monterrey. Editorial design with GSAP animations and Lenis smooth scrolling, focused on performance and SEO.",
+        image: "/images/rumbo.webp",
+        link: "https://wearerumbo.com",
+        tags: [TAGS.ASTRO, TAGS.JAVASCRIPT],
+    },
+    {
+        title: "Nova",
+        description:
+            "Nova is a personal AI voice assistant for macOS — always listening, with local speech-to-text and text-to-speech. Landing page built with Astro and a React island.",
+        image: "/images/nova.webp",
+        link: "https://hellonova.netlify.app",
+        tags: [TAGS.ASTRO, TAGS.REACT, TAGS.JAVASCRIPT],
+    },
+    {
         title: "Ecoinnova",
         description:
             "Ecoinnova is a application for monitoring the devices eco-Tinaco in real time about temperature, level and more.",
@@ -90,88 +106,415 @@ const PROJECTS = [
 ];
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-    {
-        PROJECTS.map((project) => (
-            <article class="group">
-                <a href={project.link} class="relative block">
-                    <div
-                        class="card relative flex flex-col h-full overflow-hidden 
-                    rounded-xl
-                     bg-[#0a071c] 
-                     transition-all duration-500 hover:scale-110 hover:text-xs hover:shadow-lg hover:shadow-purple-400/30"
-                    >
-                        <div class="p-4">
-                            <h3 class="text-xl font-semibold text-purple-100 mb-2">
-                                {project.title}
-                            </h3>
-                            <p class="text-sm text-white/80 line-clamp-3 mb-4 text-pretty transition-all duration-300">
-                                {project.description}
-                            </p>
-                        </div>
-                        <div class="relative">
-                            <img
-                                class="w-full aspect-video object-cover"
-                                src={project.image}
-                                alt={project.title}
-                            />
-                            <div class="absolute inset-0 h-full bg-gradient-to-b from-transparent via-black/20 to-black/60 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                                <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-wrap gap-2 translate-y-full group-hover:translate-y-0 transition-all duration-500">
-                                    {project.tags.map((tag) => (
-                                        <span class="flex flex-row items-center gap-x-2 bg-black/80 px-2 py-1 text-xs rounded-full text-white/80 hover:scale-110 hover:text-white transition-all duration-300">
-                                            <tag.icon class="size-6 md:size-5" />{" "}
-                                            {tag.name}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div
+    class="relative lg:left-1/2 lg:-translate-x-1/2 lg:w-[min(1100px,calc(100vw-3rem))]"
+>
+    <!-- Encabezado del showcase -->
+    <div class="text-center mb-6">
+        <p class="text-sm font-semibold text-neutral-950 dark:text-neutral-50">
+            Adrián Chávez
+        </p>
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            Selected Projects · Interactive Showcase
+        </p>
+    </div>
+
+    <!-- Escenario WebGL -->
+    <div
+        id="gl-stage"
+        class="relative h-[300px] sm:h-[360px] md:h-[430px] cursor-grab select-none"
+    >
+    </div>
+
+    <!-- Fallback sin WebGL / reduced motion -->
+    <div
+        id="gl-fallback"
+        class="hidden grid-cols-1 sm:grid-cols-2 gap-6"
+    >
+        {
+            PROJECTS.map((project) => (
+                <a
+                    href={project.link ?? undefined}
+                    target={project.link ? "_blank" : undefined}
+                    rel={project.link ? "noopener noreferrer" : undefined}
+                    class="block rounded-xl overflow-hidden border border-black/10 dark:border-white/10"
+                >
+                    <img
+                        src={project.image}
+                        alt={`Captura del proyecto ${project.title}`}
+                        class="w-full aspect-video object-cover"
+                        loading="lazy"
+                        width="740"
+                        height="416"
+                    />
+                    <p class="p-3 font-semibold">{project.title}</p>
                 </a>
-            </article>
-        ))
-    }
+            ))
+        }
+    </div>
+
+    <!-- Info del proyecto activo -->
+    <div class="relative mt-6 min-h-[170px] sm:min-h-[150px]">
+        {
+            PROJECTS.map((project, i) => (
+                <div
+                    class={`gl-info absolute inset-x-0 top-0 mx-auto max-w-xl text-center transition-opacity duration-300 ${i === 0 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+                    data-image={project.image}
+                    data-link={project.link ?? ""}
+                >
+                    <h3 class="text-xl font-semibold text-neutral-950 dark:text-neutral-50">
+                        {project.title}
+                    </h3>
+                    <p class="text-sm mt-2 text-neutral-600 dark:text-neutral-300 text-pretty">
+                        {project.description}
+                    </p>
+                    <div class="flex justify-center flex-wrap gap-2 mt-3">
+                        {project.tags.map((tag) => (
+                            <span class="flex flex-row items-center gap-x-1.5 bg-white dark:bg-neutral-900 border border-black/10 dark:border-white/10 px-2 py-1 text-xs rounded-full text-neutral-700 dark:text-neutral-300">
+                                <tag.icon class="size-4" />
+                                {tag.name}
+                            </span>
+                        ))}
+                        {project.link && (
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="flex items-center gap-x-1 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 px-3 py-1 text-xs rounded-full font-medium hover:bg-[#f23a00] dark:hover:bg-[#f23a00] dark:hover:text-white transition"
+                            >
+                                View project ↗
+                            </a>
+                        )}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+
+    <div class="flex items-center justify-center gap-6 mt-2">
+            <button
+                id="carousel-prev"
+                aria-label="Proyecto anterior"
+                class="size-10 rounded-full border border-black/15 dark:border-white/15 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:border-[#f23a00] hover:text-[#f23a00] transition disabled:opacity-30 disabled:pointer-events-none"
+            >
+                <svg
+                    class="size-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M19 12H5m0 0l6-6m-6 6l6 6"></path>
+                </svg>
+            </button>
+            <span
+                id="gl-counter"
+                class="text-sm tabular-nums text-neutral-500 dark:text-neutral-400 min-w-10 text-center"
+                >1 / {PROJECTS.length}</span
+            >
+            <button
+                id="carousel-next"
+                aria-label="Proyecto siguiente"
+                class="size-10 rounded-full border border-black/15 dark:border-white/15 flex items-center justify-center text-neutral-700 dark:text-neutral-300 hover:border-[#f23a00] hover:text-[#f23a00] transition disabled:opacity-30 disabled:pointer-events-none"
+            >
+                <svg
+                    class="size-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M5 12h14m0 0l-6-6m6 6l-6 6"></path>
+                </svg>
+            </button>
+    </div>
 </div>
 
 <style>
-    .card {
-        position: relative;
+    #gl-stage:active {
+        cursor: grabbing;
     }
-
-    .card::before {
-        content: "";
-        position: absolute;
-        inset: -1px;
-        border-radius: 12px;
-        padding: 2px;
-        background: linear-gradient(
-            90deg,
-            #0a071c 0%,
-            #9333ea 20%,
-            #0a071c 80%
-        );
-        -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0;
-        transition: opacity 0.5s;
-        background-size: 200% 100%;
-        animation: none;
-    }
-
-    .card:hover::before {
-        opacity: 1;
-        animation: animateBorder 2s ease-in infinite;
-    }
-
-    @keyframes animateBorder {
-        0% {
-            background-position: -100% 0;
-        }
-        100% {
-            background-position: 100% 0;
-        }
+    #gl-stage canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
     }
 </style>
+
+<script>
+    import * as THREE from "three";
+
+    const stage = document.getElementById("gl-stage");
+    const infos = Array.from(
+        document.querySelectorAll<HTMLElement>(".gl-info"),
+    );
+    const counter = document.getElementById("gl-counter");
+    const prevBtn = document.getElementById(
+        "carousel-prev",
+    ) as HTMLButtonElement | null;
+    const nextBtn = document.getElementById(
+        "carousel-next",
+    ) as HTMLButtonElement | null;
+    const fallback = document.getElementById("gl-fallback");
+
+    const reducedMotion = matchMedia(
+        "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    function showFallback() {
+        if (stage) stage.style.display = "none";
+        if (fallback) {
+            fallback.classList.remove("hidden");
+            fallback.classList.add("grid");
+        }
+        document
+            .querySelectorAll(".gl-info, #gl-counter")
+            .forEach((el) => ((el as HTMLElement).style.display = "none"));
+        prevBtn?.parentElement?.parentElement?.classList.add("hidden");
+    }
+
+    if (stage && infos.length && prevBtn && nextBtn && !reducedMotion) {
+        let renderer: THREE.WebGLRenderer | null = null;
+        try {
+            renderer = new THREE.WebGLRenderer({
+                alpha: true,
+                antialias: true,
+            });
+        } catch {
+            renderer = null;
+        }
+
+        if (!renderer) {
+            showFallback();
+        } else {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+            camera.position.z = 10;
+            renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+            stage.appendChild(renderer.domElement);
+
+            const vert = /* glsl */ `
+                uniform float uHalfW;
+                uniform float uFocus;
+                varying vec2 vUv;
+                varying float vS;
+                void main() {
+                    vUv = uv;
+                    vec4 wp = modelMatrix * vec4(position, 1.0);
+                    // lente FIJA en pantalla con eje DIAGONAL: la zona corre
+                    // de la esquina inferior izquierda a la superior derecha
+                    float s = clamp((wp.x + wp.y * 0.55) / uHalfW, -1.35, 1.35);
+                    float a = smoothstep(uFocus, 1.05, abs(s));
+                    float side = s >= 0.0 ? 1.0 : -1.0;
+                    vS = s;
+                    // la zona lateral curva el contenido hacia atrás y
+                    // lo comprime hacia el centro
+                    wp.z -= a * a * uHalfW * 0.30;
+                    wp.x -= side * a * a * uHalfW * 0.12;
+                    // flare vertical: el vidrio estira lo que entra en la zona
+                    // (crea los cuernos justo en el cruce de la frontera)
+                    wp.y *= 1.0 + a * a * 0.42;
+                    // deriva diagonal: la derecha sube, la izquierda baja
+                    wp.y += side * a * a * uHalfW * 0.05;
+                    // ondulación estática sutil dentro de la zona
+                    wp.y += sin(wp.x * 1.6) * a * uHalfW * 0.02;
+                    gl_Position = projectionMatrix * viewMatrix * wp;
+                }
+            `;
+
+            const frag = /* glsl */ `
+                precision highp float;
+                uniform sampler2D uMap;
+                uniform float uFocus;
+                varying vec2 vUv;
+                varying float vS;
+                float rrect(vec2 p, vec2 b, float r) {
+                    vec2 q = abs(p) - b + r;
+                    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+                }
+                void main() {
+                    float a = smoothstep(uFocus, 1.05, abs(vS));
+                    float side = vS >= 0.0 ? 1.0 : -1.0;
+                    vec2 uv = vUv;
+                    // aberración cromática dentro de la zona de la lente
+                    float ca = 0.009 * a * a * side;
+                    vec3 col;
+                    col.r = texture2D(uMap, uv + vec2(ca, 0.0)).r;
+                    col.g = texture2D(uMap, uv).g;
+                    col.b = texture2D(uMap, uv - vec2(ca, 0.0)).b;
+                    // flare azul de la lente, concentrado en los bordes de la card
+                    float edge = max(abs(uv.x - 0.5), abs(uv.y - 0.5)) * 2.0;
+                    float edgeF = smoothstep(0.6, 1.0, edge);
+                    col += vec3(0.35, 0.6, 1.0) * a * a * (0.2 + 0.8 * edgeF) * 0.7;
+                    col += vec3(0.88, 0.94, 1.0) * pow(a, 5.0) * edgeF * 0.55;
+                    // esquinas redondeadas con borde suave
+                    float d = rrect(vUv - 0.5, vec2(0.5, 0.5), 0.045);
+                    float alpha = 1.0 - smoothstep(-0.004, 0.004, d);
+                    gl_FragColor = vec4(col, alpha);
+                }
+            `;
+
+            const loader = new THREE.TextureLoader();
+            const geo = new THREE.PlaneGeometry(1, 1, 48, 36);
+            const meshes = infos.map((el) => {
+                const tex = loader.load(el.dataset.image || "");
+                tex.colorSpace = THREE.SRGBColorSpace;
+                const mat = new THREE.ShaderMaterial({
+                    transparent: true,
+                    uniforms: {
+                        uMap: { value: tex },
+                        uHalfW: { value: 5 },
+                        uFocus: { value: 0.36 },
+                    },
+                    vertexShader: vert,
+                    fragmentShader: frag,
+                });
+                const mesh = new THREE.Mesh(geo, mat);
+                scene.add(mesh);
+                return mesh;
+            });
+
+            let spacing = 3.3;
+            let pxToWorld = 0.01;
+            let cardPx = 560;
+            const resize = () => {
+                const w = stage.clientWidth;
+                const h = stage.clientHeight;
+                renderer!.setSize(w, h);
+                camera.aspect = w / h;
+                camera.updateProjectionMatrix();
+                const worldH =
+                    2 *
+                    camera.position.z *
+                    Math.tan((camera.fov * Math.PI) / 360);
+                const worldW = worldH * camera.aspect;
+                pxToWorld = worldW / w;
+                cardPx = Math.min(0.66 * w, 560);
+                const cardW = cardPx * pxToWorld;
+                const cardH = Math.min(cardW * 0.625, worldH * 0.92);
+                spacing = cardW * 1.1;
+                meshes.forEach((m) => {
+                    m.scale.set(cardW, cardH, cardW);
+                    const u = (m.material as THREE.ShaderMaterial).uniforms;
+                    u.uHalfW.value = worldW / 2;
+                });
+                target = index * spacing;
+                scroll = target;
+            };
+
+            let index = 0;
+            let scroll = 0;
+            let target = 0;
+
+            const updateUI = () => {
+                infos.forEach((el, i) => {
+                    el.classList.toggle("opacity-100", i === index);
+                    el.classList.toggle("opacity-0", i !== index);
+                    el.classList.toggle("pointer-events-none", i !== index);
+                });
+                if (counter)
+                    counter.textContent = `${index + 1} / ${infos.length}`;
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === infos.length - 1;
+            };
+
+            const setIndex = (i: number) => {
+                index = Math.max(0, Math.min(infos.length - 1, i));
+                target = index * spacing;
+                updateUI();
+            };
+
+            prevBtn.addEventListener("click", () => setIndex(index - 1));
+            nextBtn.addEventListener("click", () => setIndex(index + 1));
+
+            // Arrastre
+            let isDown = false;
+            let moved = false;
+            let startX = 0;
+            let startScroll = 0;
+            stage.addEventListener("pointerdown", (e) => {
+                isDown = true;
+                moved = false;
+                startX = e.clientX;
+                startScroll = scroll;
+                stage.setPointerCapture(e.pointerId);
+            });
+            stage.addEventListener("pointermove", (e) => {
+                if (!isDown) return;
+                const dx = e.clientX - startX;
+                if (Math.abs(dx) > 6) moved = true;
+                target = startScroll - dx * pxToWorld;
+                scroll = target;
+            });
+            const endDrag = () => {
+                if (!isDown) return;
+                isDown = false;
+                setIndex(Math.round(scroll / spacing));
+            };
+            stage.addEventListener("pointerup", endDrag);
+            stage.addEventListener("pointercancel", endDrag);
+
+            // Scroll horizontal con trackpad/rueda (el scroll vertical de
+            // la página no se intercepta)
+            let wheelTimer = 0;
+            stage.addEventListener(
+                "wheel",
+                (e) => {
+                    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+                    e.preventDefault();
+                    const max = (infos.length - 1) * spacing;
+                    target = Math.max(
+                        0,
+                        Math.min(max, target + e.deltaX * pxToWorld * 1.2),
+                    );
+                    const near = Math.round(target / spacing);
+                    if (near !== index) {
+                        index = near;
+                        updateUI();
+                    }
+                    clearTimeout(wheelTimer);
+                    wheelTimer = window.setTimeout(
+                        () => setIndex(Math.round(target / spacing)),
+                        150,
+                    );
+                },
+                { passive: false },
+            );
+
+            // Click: card central abre el proyecto, laterales navegan hacia esa card
+            stage.addEventListener("click", (e) => {
+                if (moved) return;
+                const r = stage.getBoundingClientRect();
+                const dx = e.clientX - (r.left + r.width / 2);
+                if (Math.abs(dx) <= cardPx / 2) {
+                    const link = infos[index]?.dataset.link;
+                    if (link) window.open(link, "_blank", "noopener");
+                } else {
+                    setIndex(index + (dx > 0 ? 1 : -1));
+                }
+            });
+
+            resize();
+            updateUI();
+            window.addEventListener("resize", resize);
+
+            const tick = () => {
+                scroll += (target - scroll) * 0.09;
+                meshes.forEach((m, i) => {
+                    m.position.x = i * spacing - scroll;
+                });
+                renderer!.render(scene, camera);
+                requestAnimationFrame(tick);
+            };
+            tick();
+        }
+    } else {
+        showFallback();
+    }
+</script>
