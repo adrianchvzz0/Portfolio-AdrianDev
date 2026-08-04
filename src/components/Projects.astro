@@ -242,8 +242,6 @@ const PROJECTS = [
     }
     #gl-stage canvas {
         display: block;
-        width: 100%;
-        height: 100%;
     }
 </style>
 
@@ -298,6 +296,13 @@ const PROJECTS = [
             camera.position.z = 10;
             renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
             stage.appendChild(renderer.domElement);
+            // El canvas sangra más allá de la sección para que el melt
+            // no se corte en los bordes; los eventos los recibe el stage
+            const canvasEl = renderer.domElement;
+            canvasEl.style.position = "absolute";
+            canvasEl.style.pointerEvents = "none";
+            const PAD_X = 80;
+            const PAD_Y = 100;
 
             const vert = /* glsl */ `
                 uniform float uHalfW;
@@ -395,23 +400,32 @@ const PROJECTS = [
             const resize = () => {
                 const w = stage.clientWidth;
                 const h = stage.clientHeight;
-                renderer!.setSize(w, h);
-                camera.aspect = w / h;
+                const cw = w + PAD_X * 2;
+                const ch = h + PAD_Y * 2;
+                renderer!.setSize(cw, ch);
+                canvasEl.style.left = `${-PAD_X}px`;
+                canvasEl.style.top = `${-PAD_Y}px`;
+                canvasEl.style.width = `${cw}px`;
+                canvasEl.style.height = `${ch}px`;
+                camera.aspect = cw / ch;
                 camera.updateProjectionMatrix();
                 const worldH =
                     2 *
                     camera.position.z *
                     Math.tan((camera.fov * Math.PI) / 360);
                 const worldW = worldH * camera.aspect;
-                pxToWorld = worldW / w;
+                pxToWorld = worldW / cw;
                 cardPx = Math.min(0.66 * w, 560);
                 const cardW = cardPx * pxToWorld;
-                const cardH = Math.min(cardW * 0.625, worldH * 0.92);
+                const cardH = cardW * 0.625;
                 spacing = cardW * 1.1;
+                // la lente se normaliza al ancho visible de la sección,
+                // no al canvas con sangrado
+                const stageHalfW = (w * pxToWorld) / 2;
                 meshes.forEach((m) => {
                     m.scale.set(cardW, cardH, cardW);
                     const u = (m.material as THREE.ShaderMaterial).uniforms;
-                    u.uHalfW.value = worldW / 2;
+                    u.uHalfW.value = stageHalfW;
                 });
                 target = index * spacing;
                 scroll = target;
