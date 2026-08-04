@@ -307,12 +307,21 @@ const PROJECTS = [
                 void main() {
                     vUv = uv;
                     vec4 wp = modelMatrix * vec4(position, 1.0);
-                    // lente FIJA en pantalla con eje DIAGONAL: la zona corre
-                    // de la esquina inferior izquierda a la superior derecha
-                    float s = clamp((wp.x + wp.y * 0.55) / uHalfW, -1.35, 1.35);
-                    float a = smoothstep(uFocus, 1.05, abs(s));
-                    float side = s >= 0.0 ? 1.0 : -1.0;
-                    vS = s;
+                    // lente FIJA en pantalla con forma de ELIPSE rotada 65°:
+                    // el interior queda en foco y la distorsión crece hacia el
+                    // rim, que cruza por abajo-izquierda y arriba-derecha
+                    float cr = cos(1.13446); // 65°
+                    float sr = sin(1.13446);
+                    vec2 q = vec2(wp.x, wp.y) / uHalfW;
+                    vec2 pr = mat2(cr, -sr, sr, cr) * q;
+                    float dist = clamp(
+                        length(pr / vec2(0.55, 1.15)),
+                        0.0,
+                        1.35
+                    );
+                    float a = smoothstep(uFocus, 1.05, dist);
+                    float side = (wp.x + wp.y * 0.55) >= 0.0 ? 1.0 : -1.0;
+                    vS = dist * side;
                     // la zona lateral curva el contenido hacia atrás y
                     // lo comprime hacia el centro
                     wp.z -= a * a * uHalfW * 0.30;
@@ -370,7 +379,7 @@ const PROJECTS = [
                     uniforms: {
                         uMap: { value: tex },
                         uHalfW: { value: 5 },
-                        uFocus: { value: 0.36 },
+                        uFocus: { value: 0.44 },
                     },
                     vertexShader: vert,
                     fragmentShader: frag,
