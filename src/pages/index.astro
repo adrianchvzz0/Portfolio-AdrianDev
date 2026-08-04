@@ -1,9 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Badge from "../components/Badge.astro";
-import SocialPill from "../components/SocialPill.astro";
-import LinkedInIcon from "../components/icons/LinkedIn.astro";
-import GitHubIcon from "../components/icons/GitHub.astro";
 import MailIcon from "../components/icons/Mail.astro";
 import Section from "../components/Section.astro";
 import Projects from "../components/Projects.astro";
@@ -12,8 +8,6 @@ import Line from "../components/Line.astro";
 import UserIcon from "../components/icons/User.astro";
 import Skills from "../components/Skills.astro";
 import Hero from "../components/Hero.astro";
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout
@@ -25,17 +19,17 @@ import Hero from "../components/Hero.astro";
 
 		<Section
 			id="skills"
-			class="flex flex-col w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+			class="flex flex-col w-full lg:w-[740px] mx-auto py-14 lg:py-20"
 		>
 			<div class="gap-4">
 				<h2
-					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 justify-center items-center pb-6 lg:pb-4"
+					class="text-neutral-950 dark:text-neutral-50 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight flex gap-x-2 justify-center items-center pb-6 lg:pb-4"
 				>
 					Skills.
 				</h2>
 			</div>
 			<div
-				class="h-px w-[300px] lg:w-[800px] bg-gradient-to-r from-transparent via-purple-500/80 to-transparent mb-8 lg:mb-12 rounded-full mx-auto"
+				class="h-px w-[300px] lg:w-[800px] bg-gradient-to-r from-transparent via-neutral-900/20 dark:via-white/20 to-transparent mb-8 lg:mb-12 rounded-full mx-auto"
 			>
 			</div>
 			<Skills />
@@ -43,13 +37,13 @@ import Hero from "../components/Hero.astro";
 
 		<Section
 			id="projects"
-			class="w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+			class="w-full lg:w-[740px] mx-auto py-14 lg:py-20"
 		>
 			<div class="gap-4">
 				<h2
-					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+					class="text-neutral-950 dark:text-neutral-50 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight flex gap-x-2 items-center pb-6 lg:pb-4"
 				>
-					<CodeIcon class="size-4 md:size-6 text-purple-500" />
+					<CodeIcon class="size-4 md:size-6 text-[#f23a00]" />
 
 					Projects.
 				</h2>
@@ -60,12 +54,12 @@ import Hero from "../components/Hero.astro";
 		</Section>
 
 		<!--Empieza el About-->
-		<Section id="about" class="w-full lg:w-[740px] mx-auto py-28 lg:py-32">
+		<Section id="about" class="w-full lg:w-[740px] mx-auto py-14 lg:py-20">
 			<div class="gap-4">
 				<h2
-					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+					class="text-neutral-950 dark:text-neutral-50 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight flex gap-x-2 items-center pb-6 lg:pb-4"
 				>
-					<UserIcon class="size-4 md:size-6 text-purple-500" />
+					<UserIcon class="size-4 md:size-6 text-[#f23a00]" />
 
 					About.
 				</h2>
@@ -78,13 +72,13 @@ import Hero from "../components/Hero.astro";
 				<img
 					src="/images/logo.webp"
 					alt="Adrian Dev Foto"
-					class="size-28 md:size-16 lg:size-32 rounded-full mb-8 ring-4 ring-white/10"
+					class="size-28 md:size-16 lg:size-32 rounded-full mb-8 ring-4 ring-black/10 dark:ring-white/15"
 				/>
 				<p
 					class="mb-2 text-center md:text-left font-medium text-pretty"
 				>
 					My name is Adrián Chávez, and I'm studying <span
-						class="font-semibold text-indigo-300"
+						class="font-semibold text-[#f23a00]"
 						>Multiplatform Software Development Engineering</span
 					>.
 				</p>
@@ -92,7 +86,7 @@ import Hero from "../components/Hero.astro";
 				<p class="mb-2 text-center md:text-left text-pretty">
 					I'm passionate about both web and mobile application
 					development. I've gained
-					<span class="font-semibold text-indigo-300">UX/UI</span> design
+					<span class="font-semibold text-[#f23a00]">UX/UI</span> design
 					experience through self-learning, always focused on creating
 					high-quality solutions in both design and functionality.
 				</p>
@@ -101,13 +95,13 @@ import Hero from "../components/Hero.astro";
 
 		<Section
 			id="contact"
-			class="w-full lg:w-[740px] mx-auto py-28 lg:py-32"
+			class="w-full lg:w-[740px] mx-auto py-14 lg:py-20"
 		>
 			<div class="gap-4">
 				<h2
-					class="text-white text-xl md:text-2xl lg:text-3xl font-semibold flex gap-x-2 items-center pb-6 lg:pb-4"
+					class="text-neutral-950 dark:text-neutral-50 text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight flex gap-x-2 items-center pb-6 lg:pb-4"
 				>
-					<MailIcon class="size-4 md:size-6 text-purple-500" />
+					<MailIcon class="size-4 md:size-6 text-[#f23a00]" />
 
 					Contact.
 				</h2>
@@ -119,7 +113,7 @@ import Hero from "../components/Hero.astro";
 				</h5>
 				<a
 					href="mailto:adrianchvzz@gmail.com"
-					class="underline text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+					class="underline text-neutral-800 dark:text-neutral-200 hover:text-[#f23a00] hover:scale-110 transition"
 					>adrianchvzz@gmail.com</a
 				>
 				<h5 class="text-xl md:text-2xl lg:text-lg font-semibold">
@@ -127,14 +121,14 @@ import Hero from "../components/Hero.astro";
 				</h5>
 				<a
 					href="tel:8187097029"
-					class="underline text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+					class="underline text-neutral-800 dark:text-neutral-200 hover:text-[#f23a00] hover:scale-110 transition"
 					>81 8709 7029</a
 				>
 				<h5 class="text-xl md:text-2xl lg:text-lg font-semibold">
 					Address
 				</h5>
 				<p
-					class="text-white/85 hover:text-indigo-300 hover:scale-110 transition"
+					class="text-neutral-800 dark:text-neutral-200 hover:text-[#f23a00] hover:scale-110 transition"
 				>
 					Monterrey, Nuevo León
 				</p>

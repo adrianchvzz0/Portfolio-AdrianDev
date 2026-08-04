@@ -8,7 +8,6 @@ export default function HeroAnimation() {
     const textRef = useRef();
     const textRef2 = useRef(); // Nuevo ref para el segundo split
     const pRef = useRef();
-    const navRef = useRef();
 
     useEffect(() => {
         const split = new SplitText(textRef.current, { type: "words" });
@@ -36,48 +35,30 @@ export default function HeroAnimation() {
             filter: "blur(8px)",
             autoAlpha: 0,
         });
-        tl.fromTo(
-            navRef.current,
-            {
-                y: 10,
-                opacity: 0,
-                scale: 0.9,
-                filter: "blur(10px)",
-            },
-            {
-                duration: 0.5,
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)",
-                ease: "back.in",
-            }
-
-        );
     }, []);
 
     return (
-        <section className="block w-full lg:w-[740px] mx-auto pt-52 pb-0">
+        <section className="block w-full lg:w-[740px] mx-auto pt-32 md:pt-40 lg:pt-48 pb-0">
             <h1
                 ref={textRef}
-                className="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-wrap gap-4 lg:gap-x-4 pb-6 lg:pb-2"
+                className="text-neutral-950 dark:text-neutral-50 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight flex flex-wrap gap-4 lg:gap-x-4 pb-6 lg:pb-2"
             >
                 Hey! I'm Adrián Chávez
             </h1>
 
             <h2
                 ref={textRef2}
-                className="text-indigo-200 text-xl md:text-2xl lg:text-2xl font-medium pb-4"
+                className="text-[#f23a00] text-xl md:text-2xl lg:text-2xl font-medium pb-4"
             >
                 Full Stack Developer
             </h2>
 
             <p
                 ref={pRef}
-                className="text-white text-lg md:text-xl lg:text-xl opacity-80 max-w-[800px] whitespace-pre-wrap"
+                className="text-neutral-700 dark:text-neutral-300 text-lg md:text-xl lg:text-xl max-w-[800px] whitespace-pre-wrap"
             >
-                <span>+1 year of experience as Full Stack Developer. </span>
-                <span className="text-indigo-300">From Monterrey, Nuevo León. </span>
+                <span>+2 years of experience as Full Stack Developer. </span>
+                <span className="text-neutral-900 dark:text-neutral-100 font-medium">From Monterrey, Nuevo León. </span>
                 <span className="opacity-80">
                     I'm specialized in modern web development and unique applications.
                 </span>

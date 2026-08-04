@@ -13,18 +13,17 @@ const { title, description } = Astro.props;
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		<script is:inline>
+			const theme =
+				localStorage.getItem("theme") ??
+				(matchMedia("(prefers-color-scheme: dark)").matches
+					? "dark"
+					: "light");
+			document.documentElement.classList.toggle("dark", theme === "dark");
+			document.documentElement.classList.add("js");
+		</script>
 	</head>
 	<body>
-		<div class="fixed inset-0 z-[-2] w-full h-full bg-slate-950">
-			<div
-				class="absolute bottom-0 left-[-25%] md:left-[-15%] lg:left-[-10%] right-0 top-[-10%] w-[60vmin] md:w-[70vmin] lg:w-[80vmin] h-[60vmin] md:h-[70vmin] lg:h-[80vmin] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-			>
-			</div>
-			<div
-				class="absolute bottom-0 right-[-25%] md:right-[-15%] lg:right-[-10%] top-[-10%] w-[60vmin] md:w-[70vmin] lg:w-[80vmin] h-[60vmin] md:h-[70vmin] lg:h-[80vmin] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(255,255,255,0))]"
-			>
-			</div>
-		</div>
 		<Header />
 		<main class="flex-1">
 			<slot />
@@ -35,7 +34,20 @@ const { title, description } = Astro.props;
 
 <style is:global>
 	:root {
+		color-scheme: light;
+		--paper: #f3f1ed;
+		--ink: #131313;
+		--accent: #f23a00;
+	}
+	:root.dark {
 		color-scheme: dark;
+		--paper: #111010;
+		--ink: #f0eeea;
+	}
+	body {
+		transition:
+			background-color 0.3s ease,
+			color 0.3s ease;
 	}
 	html {
 		font-family: "Onest Variable", system-ui, sans-serif;
@@ -49,9 +61,35 @@ const { title, description } = Astro.props;
 		width: 100%;
 		min-height: 100vh;
 		overflow-x: hidden;
-		background-color: #020617;
+		background-color: var(--paper);
+		color: var(--ink);
 		display: flex;
 		flex-direction: column;
+	}
+	::selection {
+		background: var(--accent);
+		color: #fff;
+	}
+
+	/* Reveal sutil al hacer scroll (solo con JS activo) */
+	html.js .reveal {
+		opacity: 0;
+		transform: translateY(18px);
+		transition:
+			opacity 0.7s ease,
+			transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+		transition-delay: var(--reveal-delay, 0ms);
+	}
+	html.js .reveal.revealed {
+		opacity: 1;
+		transform: none;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		html.js .reveal {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 	}
 
 	main {
@@ -59,3 +97,19 @@ const { title, description } = Astro.props;
 		padding: 0;
 	}
 </style>
+
+<script>
+	const revealEls = document.querySelectorAll(".reveal");
+	const io = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) {
+					entry.target.classList.add("revealed");
+					io.unobserve(entry.target);
+				}
+			}
+		},
+		{ threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+	);
+	revealEls.forEach((el) => io.observe(el));
+</script>
