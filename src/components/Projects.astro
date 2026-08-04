@@ -227,6 +227,9 @@ const PROJECTS = [
 </div>
 
 <style>
+    #gl-stage {
+        touch-action: pan-y;
+    }
     #gl-stage:active {
         cursor: grabbing;
     }
@@ -291,8 +294,8 @@ const PROJECTS = [
             const canvasEl = renderer.domElement;
             canvasEl.style.position = "absolute";
             canvasEl.style.pointerEvents = "none";
-            const PAD_X = 80;
-            const PAD_Y = 100;
+            let PAD_X = 80;
+            let PAD_Y = 100;
 
             const vert = /* glsl */ `
                 uniform float uHalfW;
@@ -390,6 +393,9 @@ const PROJECTS = [
             const resize = () => {
                 const w = stage.clientWidth;
                 const h = stage.clientHeight;
+                const mobile = w < 640;
+                PAD_X = mobile ? 36 : 80;
+                PAD_Y = mobile ? 48 : 100;
                 const cw = w + PAD_X * 2;
                 const ch = h + PAD_Y * 2;
                 renderer!.setSize(cw, ch);
@@ -416,6 +422,9 @@ const PROJECTS = [
                     m.scale.set(cardW, cardH, cardW);
                     const u = (m.material as THREE.ShaderMaterial).uniforms;
                     u.uHalfW.value = stageHalfW;
+                    // en pantallas angostas la zona de foco se amplía para
+                    // que la card activa quede limpia
+                    u.uFocus.value = mobile ? 0.62 : 0.44;
                 });
                 target = index * spacing;
                 scroll = target;
